@@ -49,4 +49,21 @@ function createNumberButtons(){
   }
 }
 
+function createOperationsButtons(){
+  operationsContainer=document.getElementById("operations-container");
+  let arr=["+","-","*","/"];
+  
+  arr.forEach (operator=> {
+    
+    const button = document.createElement("button");
+    button.setAttribute("class",`operator-button`);
+    
+    button.innerText=operator;
+    operationsContainer.appendChild(button);
+
+  })
+}
+
+
 createNumberButtons();
+createOperationsButtons();

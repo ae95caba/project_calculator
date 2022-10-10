@@ -17,3 +17,22 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+#operations-container{
+    display:grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+#calculator{
+    display:grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 1fr 1frl;
+    width: 1500px; 
+    height: 750px;
+}
+
+#display{
+    
+    border: 1px blue solid;
+    grid-column: 1/3;
+}
