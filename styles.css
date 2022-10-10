@@ -1,0 +1,19 @@
+*{
+    
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+
+
+.number-button{
+    color: red;
+}
+
+
+#numbers-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
