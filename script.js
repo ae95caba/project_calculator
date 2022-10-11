@@ -54,6 +54,27 @@ function createNumberButtons(){
   }
 }
 
+function result(){
+  var arr=["+","-","*","/"];
+ 
+  for (var i = 0; i<=arr.length; i++){
+     
+    if( display.innerText.includes(arr[i])){
+    var [n1,n2]= (display.innerText).split(arr[i]);
+    console.log(operate(n1,arr[i],n2));
+      
+    };
+  }
+}
+
+function actAsResult(){
+  console.log("actAsResult");
+  if (isAlreadyAOperator()){
+    console.log("actAsResult 'if is true")
+    return result();
+  }
+}
+
 function createOperationsButtons(){
   operationsContainer=document.getElementById("operations-container");
   let arr=["+","-","*","/"];
@@ -64,41 +85,35 @@ function createOperationsButtons(){
     button.setAttribute("class",`operator-button`);
     
     button.innerText=operator;
+    button.addEventListener("click", actAsResult );
     button.onclick = function(){display.innerText=display.innerText+operator};
+   // button.onclick = actAsResult;
+    
     operationsContainer.appendChild(button);
 
   })
 }
 
 
+
 createNumberButtons();
 createOperationsButtons();
 
 
-
-//display config 
-
-//display.innerText = "123*34";
-
-function result(){
+function isAlreadyAOperator(){
+  console.log("isAlreadyAOperator");
   var arr=["+","-","*","/"];
-  //var arr2 = Array.from(display.innerText);
+  var rta= false;
   for (var i = 0; i<=arr.length; i++){
-    var x = i;
-  if( display.innerText.includes(arr[i])){
-   var [n1,n2]= (display.innerText).split(arr[i]);
-   console.log(operate(n1,arr[i],n2));
-    
-  };
-  
-  // console.log(`tiene a ${a}`);
-  // console.log(`tiene b ${b}`);
-  // console.log (`tiene arr x ${arr[x]}`);
-  // console.log(`tiene x ${x}`);
-  // console.log(`tiene arr ${arr}`); 
-
+    if (display.innerText.includes(arr[i])){
+      rta=true;
+      break;
+    }
   }
+  return rta;
 }
+
+function 
 
 
 
