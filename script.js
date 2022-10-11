@@ -57,20 +57,44 @@ function createNumberButtons(){
 function result(){
   var arr=["+","-","*","/"];
  
-  for (var i = 0; i<=arr.length; i++){
-     
-    if( display.innerText.includes(arr[i])){
-    var [n1,n2]= (display.innerText).split(arr[i]);
-    console.log(operate(n1,arr[i],n2));
-      
-    };
-  }
+      for (var i = 0; i<=arr.length; i++){
+        
+        if( display.innerText.includes(arr[i])){
+        var [n1,n2]= (display.innerText).split(arr[i]);
+        console.log(operate(n1,arr[i],n2));
+        };
+      }
+    
 }
+
+function result2(){
+ 
+  var displayArray=Array.from(display.innerText);
+ 
+      arr3= displayArray.map(string=>{
+        var arr4=[]
+        var i = 0
+        if(typeof(string) == "number"){
+          arr4[i]=string;
+        }else{
+          i++;
+          arr4[i]=string;
+          i++;
+
+        }
+      })
+    
+}
+
+
+
+actAsResultActivated= false;
 
 function actAsResult(){
   console.log("actAsResult");
   if (isAlreadyAOperator()){
     console.log("actAsResult 'if is true")
+    actAsResultActivated= true;
     return result();
   }
 }
@@ -113,7 +137,9 @@ function isAlreadyAOperator(){
   return rta;
 }
 
-function 
+function newResult(){
+
+}
 
 
 
