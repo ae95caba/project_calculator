@@ -64,9 +64,7 @@ function createOperationsButtons(){
     
     button.innerText=operator;
     button.addEventListener("click", modifyObj );
-    //button.onclick = function(){display.innerText=display.innerText+operator};
-   // button.onclick = actAsResult;
-    
+   
     operationsContainer.appendChild(button);
 
   })
@@ -90,22 +88,26 @@ function modifyObj(input){
 
 
     if(isNaN( input.target.innerText)){
-          console.log (input.target.innerText);
-          if(! obj.n2){obj.op=input.target.innerText;}
-          else if (obj.n2){
-            console.log (input.target.innerText);
-            obj.n1= operate(obj.n1, obj.op, obj.n2);
-            obj.op=input.target.innerText;
-            obj.n2="";}
-      }
-     
+      console.log (input.target.innerText);
+      if(! obj.n2){obj.op=input.target.innerText;}
+      else if (obj.n2){
+        console.log (input.target.innerText);
+        obj.n1= operate(obj.n1, obj.op, obj.n2);
+        obj.op=input.target.innerText;
+        obj.n2="";}
+    }
+    display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
 }
+
+let resultV ;
 
 function result(){
     if(obj.n1 && obj.op  && obj.n2){
         obj.n1=operate(obj.n1, obj.op, obj.n2); 
         obj.op="";
         obj.n2="";
+        display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+        
     }else{return};
 }
 
@@ -114,4 +116,5 @@ createNumberButtons();
 createOperationsButtons();
 
 
+toDisplay = `${obj.n1} ${obj.op} ${obj.n2}`;
 display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
