@@ -1,40 +1,35 @@
 function add(n1,n2){
-    return Number(n1)+Number(n2);
+  return Number(n1)+Number(n2);
 }
 
 function subtract(n1,n2){
- return Number(n1)-Number(n2);
+  return Number(n1)-Number(n2);
 }
 
 function multiply(n1,n2){
-    return Number(n1)*Number(n2);
+  return Number(n1)*Number(n2);
 }
 
 function divide(n1,n2){
-    return Number(n1)/Number(n2);
+  return Number(n1)/Number(n2);
 }
 
 function operate(n1,operator,n2){
-    switch(operator){
-        case "+":
-          return  add(n1,n2);
-            
-        case "-":
-          return  subtract(n1,n2);
-           
-        case "*":
-          return  multiply(n1,n2);
-            
-        case "/":
-           return divide(n1,n2);
-            
-    }
+  switch(operator){
+    case "+":
+    return  add(n1,n2);
+        
+    case "-":
+    return  subtract(n1,n2);
+        
+    case "*":
+    return  multiply(n1,n2);
+        
+    case "/":
+    return divide(n1,n2);
+          
+  }
 }
-
-n=document.getElementById("numbers-container");
-ns= document.createElement("button")
-
-
 
 function createNumberButtons(){
   numbersContainer=document.getElementById("numbers-container");
@@ -42,62 +37,21 @@ function createNumberButtons(){
     
     const button = document.createElement("button");
     button.setAttribute("class",`number-button`);
-    
+      
     if(i!==10){
       button.innerText=`${i}`;
-      button.onclick = function(){display.innerText=display.innerText+i};
-    }else{button.innerText="0";
-    button.onclick = function(){display.innerText=display.innerText+"0"};}
-    
+      button.addEventListener("click", modifyObj );  
+    // button.onclick = function(){display.innerText=display.innerText+i};
+    }else{
+      button.innerText="0";
+    //button.onclick = function(){display.innerText=display.innerText+"0"};}
+      button.addEventListener("click", modifyObj );
+    }
     numbersContainer.appendChild(button);
-
   }
+  
 }
 
-function result(){
-  var arr=["+","-","*","/"];
- 
-      for (var i = 0; i<=arr.length; i++){
-        
-        if( display.innerText.includes(arr[i])){
-        var [n1,n2]= (display.innerText).split(arr[i]);
-        console.log(operate(n1,arr[i],n2));
-        };
-      }
-    
-}
-
-function result2(){
- 
-  var displayArray=Array.from(display.innerText);
- 
-      arr3= displayArray.map(string=>{
-        var arr4=[]
-        var i = 0
-        if(typeof(string) == "number"){
-          arr4[i]=string;
-        }else{
-          i++;
-          arr4[i]=string;
-          i++;
-
-        }
-      })
-    
-}
-
-
-
-actAsResultActivated= false;
-
-function actAsResult(){
-  console.log("actAsResult");
-  if (isAlreadyAOperator()){
-    console.log("actAsResult 'if is true")
-    actAsResultActivated= true;
-    return result();
-  }
-}
 
 function createOperationsButtons(){
   operationsContainer=document.getElementById("operations-container");
@@ -109,8 +63,8 @@ function createOperationsButtons(){
     button.setAttribute("class",`operator-button`);
     
     button.innerText=operator;
-    button.addEventListener("click", actAsResult );
-    button.onclick = function(){display.innerText=display.innerText+operator};
+    button.addEventListener("click", modifyObj );
+    //button.onclick = function(){display.innerText=display.innerText+operator};
    // button.onclick = actAsResult;
     
     operationsContainer.appendChild(button);
@@ -118,29 +72,46 @@ function createOperationsButtons(){
   })
 }
 
+obj={n1: "",op:"",n2:""};
+function modifyObj(input){
+    
+
+    if (!isNaN( input.target.innerText)){
+        if(obj.op){
+            obj.n2+=input.target.innerText;
+            //return;
+        }else if (!obj.op){
+            obj.n1+=input.target.innerText;
+            //return;
+        }
+    }
+    
+    console.log (input.target.innerText);
+
+
+    if(isNaN( input.target.innerText)){
+          console.log (input.target.innerText);
+          if(! obj.n2){obj.op=input.target.innerText;}
+          else if (obj.n2){
+            console.log (input.target.innerText);
+            obj.n1= operate(obj.n1, obj.op, obj.n2);
+            obj.op=input.target.innerText;
+            obj.n2="";}
+      }
+     
+}
+
+function result(){
+    if(obj.n1 && obj.op  && obj.n2){
+        obj.n1=operate(obj.n1, obj.op, obj.n2); 
+        obj.op="";
+        obj.n2="";
+    }else{return};
+}
 
 
 createNumberButtons();
 createOperationsButtons();
 
 
-function isAlreadyAOperator(){
-  console.log("isAlreadyAOperator");
-  var arr=["+","-","*","/"];
-  var rta= false;
-  for (var i = 0; i<=arr.length; i++){
-    if (display.innerText.includes(arr[i])){
-      rta=true;
-      break;
-    }
-  }
-  return rta;
-}
-
-function newResult(){
-
-}
-
-
-
-
+display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
