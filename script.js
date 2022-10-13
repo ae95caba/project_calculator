@@ -70,6 +70,8 @@ function createOperationsButtons(){
   })
 }
 
+let resultSwitch = 0;
+
 obj={n1: "",op:"",n2:""};
 function modifyObj(input){
     
@@ -77,10 +79,13 @@ function modifyObj(input){
     if (!isNaN( input.target.innerText)){
         if(obj.op){
             obj.n2+=input.target.innerText;
-            //return;
+            
         }else if (!obj.op){
-            obj.n1+=input.target.innerText;
-            //return;
+          if(resultSwitch){
+          obj.n1=input.target.innerText;
+          resultSwitch=0;
+          }else{obj.n1+=input.target.innerText;}
+           
         }
     }
     
@@ -101,12 +106,15 @@ function modifyObj(input){
 
 let resultV ;
 
+
 function result(){
     if(obj.n1 && obj.op  && obj.n2){
         obj.n1=operate(obj.n1, obj.op, obj.n2); 
         obj.op="";
         obj.n2="";
         display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+        resultSwitch = 1;
+        //add event lisnter that checjs if obj[0].n1 changes if it does obj[0] = "", then disable the event;
         
     }else{return};
 }
