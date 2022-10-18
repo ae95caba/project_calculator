@@ -1,17 +1,22 @@
 function add(n1,n2){
-  return Number(n1)+Number(n2);
+  let answer = Number(n1)+Number(n2);
+  return Math.round(answer*10000)/10000;
+  
 }
 
 function subtract(n1,n2){
-  return Number(n1)-Number(n2);
+  let answer = Number(n1)-Number(n2);
+  return Math.round(answer*10000)/10000;
 }
 
 function multiply(n1,n2){
-  return Number(n1)*Number(n2);
+  let answer = Number(n1)*Number(n2);
+  return Math.round(answer*10000)/10000;
 }
 
 function divide(n1,n2){
-  return Number(n1)/Number(n2);
+  let answer = Number(n1)/Number(n2);
+  return Math.round(answer*10000)/10000;
 }
 
 function operate(n1,operator,n2){
@@ -33,22 +38,27 @@ function operate(n1,operator,n2){
 
 function createNumberButtons(){
   numbersContainer=document.getElementById("numbers-container");
-  for (let i= 1; i<=10; i++){
+  for (let i= 1; i<=11; i++){
     
     const button = document.createElement("button");
     button.setAttribute("class",`number-button`);
       
-    if(i!==10){
+    if(i<10){
       button.innerText=`${i}`;
-      button.addEventListener("click", modifyObj );  
+      button.addEventListener("click", addNumber );  
     // button.onclick = function(){display.innerText=display.innerText+i};
-    }else{
+    }else if(i== 11){
+      button.innerText=".";
+      button.addEventListener("click", addDot );
+    }else if(i==10){
       button.innerText="0";
     //button.onclick = function(){display.innerText=display.innerText+"0"};}
-      button.addEventListener("click", modifyObj );
+      button.addEventListener("click", addNumber );
     }
+
     numbersContainer.appendChild(button);
   }
+
   
 }
 
@@ -63,7 +73,7 @@ function createOperationsButtons(){
     button.setAttribute("class",`operator-button`);
     
     button.innerText=operator;
-    button.addEventListener("click", modifyObj );
+    button.addEventListener("click", addOperator );
    
     operationsContainer.appendChild(button);
 
@@ -72,57 +82,107 @@ function createOperationsButtons(){
 
 let resultSwitch = 0;
 
-obj={n1: "",op:"",n2:""};
-function modifyObj(input){
-    
+obj={n1: "0",op:"",n2:""};
 
-    if (!isNaN( input.target.innerText)){
-        if(obj.op){
-            obj.n2+=input.target.innerText;
-            
-        }else if (!obj.op){
-          if(resultSwitch){
-          obj.n1=input.target.innerText;
-          resultSwitch=0;
-          }else{obj.n1+=input.target.innerText;}
-           
-        }
+function addNumber(input){
+
+  if(obj.op){
+    if(obj.n2 != 0){
+      obj.n2+=input.target.innerText;
+    }else if(obj.n2 == 0){
+      obj.n2=input.target.innerText;
     }
-    
-    console.log (input.target.innerText);
-
-
-    if(isNaN( input.target.innerText)){
-      console.log (input.target.innerText);
-      if(! obj.n2){obj.op=input.target.innerText;}
-      else if (obj.n2){
-        console.log (input.target.innerText);
-        obj.n1= operate(obj.n1, obj.op, obj.n2);
-        obj.op=input.target.innerText;
-        obj.n2="";}
+      
+  }else if (!obj.op){
+    if(resultSwitch){
+      obj.n1=input.target.innerText;
+      resultSwitch=0;
+    }else{
+      if(obj.n1 != 0){
+        obj.n1+=input.target.innerText;}
+      else if (obj.n1 == 0){
+        obj.n1 = input.target.innerText;}
     }
-    display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+  };
+
+  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+};
+  
+function addOperator(input){
+  
+      
+  if(! obj.n2){obj.op=input.target.innerText;}
+  else if (obj.n2){
+    
+    obj.n1= operate(obj.n1, obj.op, obj.n2);
+    obj.op=input.target.innerText;
+    obj.n2="";}
+
+
+  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+};
+
+function addDot(input){
+  
+
+  if(obj.op){
+    if(obj.n2.search(/\./)<0){
+      alert("no hay punto en n2");
+      obj.n2+=input.target.innerText;
+    }else{
+      alert("hay punto en n2");
+      return};
+  }
+
+
+  if(!obj.op){
+    if((obj.n1).search(/\./) == -1){
+      alert("no hay punto en n1");
+      obj.n1+=input.target.innerText;
+    }else if(obj.n1 >0){
+      console.log((obj.n1).search(/\./));
+      alert("hay punto en n1");
+      
+    return};
+
+  }
+
+  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
 }
+
+
+
+
 
 let resultV ;
 
-
+//whe the user presses =, the obj.n1 becomes the result of the previous operation
 function result(){
+   
     if(obj.n1 && obj.op  && obj.n2){
         obj.n1=operate(obj.n1, obj.op, obj.n2); 
         obj.op="";
         obj.n2="";
         display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
         resultSwitch = 1;
-        //add event lisnter that checjs if obj[0].n1 changes if it does obj[0] = "", then disable the event;
+        
         
     }else{return};
 }
 
 
+
+function clear2(){
+  
+  obj.n1="0";
+  obj.op="";
+  obj.n2="";
+  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+}
 createNumberButtons();
 createOperationsButtons();
 
 
 toDisplay = `${obj.n1} ${obj.op} ${obj.n2}`;
 display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+
