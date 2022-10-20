@@ -14,11 +14,16 @@ function multiply(n1,n2){
   return Math.round(answer*10000)/10000;
 }
 
+var infinitySwitch=0;
+
 function divide(n1,n2){
   let answer = Number(n1)/Number(n2);
   if (answer != Infinity){
+    
     return Math.round(answer*10000)/10000;
-  }else {return "ERROR cant divide by 0";};
+  }else {
+    infinitySwitch=1;
+    return "ERROR cant divide by 0";};
 }
 
 function operate(n1,operator,n2){
@@ -87,6 +92,7 @@ let resultSwitch = 0;
 obj={n1:"0",op:"",n2:""};
 
 function addNumber(input){
+  if(infinitySwitch){infinitySwitch=0}
 
   if(obj.op){
     if(obj.n2 !== "0" || obj.n2 !==""){
@@ -113,6 +119,8 @@ function addNumber(input){
 };
   
 function addOperator(input){
+
+  if(infinitySwitch){return;}
   
   if(resultSwitch){ resultSwitch=0};
       
