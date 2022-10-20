@@ -209,3 +209,16 @@ createOperationsButtons();
 toDisplay = `${obj.n1} ${obj.op} ${obj.n2}`;
 display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
 
+
+function backspace(){
+  if (obj.n2){
+  obj.n2 = obj.n2.slice(0, -1);
+  }else if(obj.op){
+  obj.op="";
+  }else if(obj.n1){
+  obj.n1=obj.n1.slice(0,-1);
+  }
+
+  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+  
+}
