@@ -52,18 +52,19 @@ function createNumberButtons(){
     //creates numbers from 1 to 9  
     if(i<10){
       button.innerText=`${i}`;
-      button.addEventListener("click", addNumber );  
+      button.addEventListener("click", function(e){addNumber2(e.target.innerText);} );  
+      
     // button.onclick = function(){display.innerText=display.innerText+i};
     //creates dot
     }else if(i== 11){
       button.innerText=".";
-      button.addEventListener("click", addDot );
-      button.addEventListener("keydown",function(e){console.log(e);});
+      button.addEventListener("click", function(e){addDot2(e.target.innerText);}  );
+      
     //creates number 0
     }else if(i==10){
       button.innerText="0";
     //button.onclick = function(){display.innerText=display.innerText+"0"};}
-      button.addEventListener("click", addNumber );
+      button.addEventListener("click", function(e){addNumber2(e.target.innerText);} );
     }
 
     numbersContainer.appendChild(button);
@@ -83,7 +84,7 @@ function createOperationsButtons(){
     button.setAttribute("class",`operator-button`);
     
     button.innerText=operator;
-    button.addEventListener("click", addOperator );
+    button.addEventListener("click", function(e){addOperator2(e.target.innerText);}  );
    
     operationsContainer.appendChild(button);
 
@@ -93,35 +94,6 @@ function createOperationsButtons(){
 let resultSwitch = 0;
 
 obj={n1:"0",op:"",n2:""};
-
-function addNumber(input){
-  console.log(input);
-  if(infinitySwitch){infinitySwitch=0}
-
-  if(obj.op){
-    if(obj.n2 !== "0"){
-      obj.n2+=input.target.innerText;
-    }else if(obj.n2 === "0"){
-     
-      obj.n2 = input.target.innerText;
-    }
-      
-  }else if (!obj.op){
-    if(resultSwitch){
-      obj.n1=input.target.innerText;
-      resultSwitch=0;
-    }else{
-      if(obj.n1 !== "0"&& obj.n1 !==""){
-        obj.n1+=input.target.innerText;}
-      else if (obj.n1 === "0" || obj.n1 === ""){
-        //alert("n1 tiene 0");
-        obj.n1 = input.target.innerText;}
-    }
-  };
-
-  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
-
-};
   
 function addOperator(input){
 
@@ -151,7 +123,7 @@ function addDot(input){
   }
 
 
-  
+
   if(obj.op){
     if(!obj.n2){obj.n2= "0."; }
     else if (obj.n2.search(/\./)<0){
@@ -236,29 +208,38 @@ function backspace(){
 // adding keyboard suppport
 
 function addNumber2(input){
+
   console.log(input);
+  
   if(infinitySwitch){infinitySwitch=0}
+  
+  if(resultSwitch){
+    obj.n1=input;
+    resultSwitch=0;
+    display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
+    return
+
+  }
+
 
   if(obj.op){
     if(obj.n2 !== "0"){
       obj.n2+=input;
-    }else if(obj.n2 === "0" ){
-      
-      obj.n2=input;
+    }else if(obj.n2 === "0"){
+     
+      obj.n2 = input;
     }
       
   }else if (!obj.op){
-    if(resultSwitch){
-      obj.n1=input;
-      resultSwitch=0;
-    }else{
-      if(obj.n1 !== "0"&& obj.n1 !==""){
-        obj.n1+=input}
-      else if (obj.n1 === "0" || obj.n1 === ""){
+    
+      if(obj.n1 !== "0"){
+        obj.n1+=input;}
+      else if (obj.n1 === "0"){
         //alert("n1 tiene 0");
-        obj.n1 = input}
-    }
+        obj.n1 = input;}
+    
   };
+
 
   display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
 
