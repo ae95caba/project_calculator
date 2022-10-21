@@ -95,62 +95,6 @@ let resultSwitch = 0;
 
 obj={n1:"0",op:"",n2:""};
   
-function addOperator(input){
-
-  if(infinitySwitch){return;}
-  
-  if(resultSwitch){ resultSwitch=0};
-      
-  if(! obj.n2){obj.op=input.target.innerText;}
-  else if (obj.n2){
-    
-    obj.n1= operate(obj.n1, obj.op, obj.n2);
-    obj.op=input.target.innerText;
-    obj.n2="";}
-
-
-  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
-};
-
-// the dot needs an indiviual functions because the ways it gets added to the display should be different
-// to the way numbers and other non numbers get added.
-
-function addDot(input){
-  
-  if (resultSwitch){
-    obj.n1="0.";
-    resultSwitch = 0;
-  }
-
-
-
-  if(obj.op){
-    if(!obj.n2){obj.n2= "0."; }
-    else if (obj.n2.search(/\./)<0){
-     // alert("no hay punto en n2");
-      obj.n2+=input.target.innerText;
-    }else if(obj.n2.search(/\./)>=0){
-      //alert("hay punto en n2");
-      };
-  }
-
-
-  if(!obj.op){
-    if((obj.n1).search(/\./) == -1){
-     // alert("no hay punto en n1");
-      obj.n1+=input.target.innerText;
-    }else if(obj.n1 >0){
-      
-      //alert("hay punto en n1");
-      
-    };
-
-  }
-
-  
-
-  display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
-}
 
 
 
@@ -197,8 +141,9 @@ function backspace(){
   }else if(obj.n1){
     if(obj.n1 ==="0"){return}
     else{
-    console.log(!!obj.n1);
-    obj.n1=obj.n1.slice(0,-1);}
+    obj.n1=obj.n1.slice(0,-1);
+      if (obj.n1.length == 0){obj.n1="0";}
+  }
   }
 
   display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
