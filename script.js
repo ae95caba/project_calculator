@@ -158,6 +158,7 @@ function addNumber2(input){
   
   if(infinitySwitch){infinitySwitch=0}
   
+  //when a operation is made, the next number selected will reemplace the current obj.n1
   if(resultSwitch){
     obj.n1=input;
     resultSwitch=0;
@@ -227,16 +228,36 @@ function addDot2(){
 
 function addOperator2(input){
 
-  if(infinitySwitch){return;}
+  //alert("add operator2 function activada");
+
+  if(infinitySwitch){
+   // alert("infinity switch activado");
+    return;}
   
   if(resultSwitch){ resultSwitch=0};
+
+  
       
   if(! obj.n2){obj.op=input;}
   else if (obj.n2){
     
     obj.n1= operate(obj.n1, obj.op, obj.n2);
-    obj.op=input;
-    obj.n2="";}
+
+    if (infinitySwitch){
+      display.innerText= `${obj.n1}`;
+      obj.op="";
+      obj.n2="";
+      resultSwitch=1;
+      
+      alert("inf switch activadted");
+      return;
+    }else{
+      alert("inf swithc desativated"); 
+      alert("input");
+      obj.op=input;};
+
+    obj.n2="";
+  }
 
 
   display.innerText= `${obj.n1} ${obj.op} ${obj.n2}`;
