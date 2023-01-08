@@ -6,7 +6,9 @@
     box-sizing: border-box;
 }
 
-
+body{
+    height: 100vh;
+}
 
 .number-button{
     color: red;
@@ -16,30 +18,71 @@
 #numbers-container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    color: blue !important;
+    font-size: 50px;
+    gap: 1vh;
+    background-color: grey;
+    padding: 1vh;
+}
+
+#numbers-container > button{
+    color: blue !important;
+    font-size: 4vh;
+    background-color: white;
+    border-radius: 2vh;
+
 }
 
 #operations-container{
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 1vh;
+    background-color: pink;
+    padding: 1vh;
+}
+
+#operations-container > button{
+    color: green;
+    font-size:4vh;
+    border-radius: 2vh;
+    background-color: white;
 }
 
 #calculator{
     display:grid;
     grid-template-columns: 3fr 1fr ;
     grid-template-rows: 1fr 4fr 1fr;
-    width: 1500px; 
-    height: 750px;
+    width: 100%; 
+    height: 100%;
+    gap: 2vh;
+    padding: 1vh;
 }
 
 #display{
     
-    border: 1px blue solid;
+    border: 1px black solid;
+    
     grid-column: 1/3;
-    font-size: 25px;
+    font-size: 8vh;
+    color: red;
+    text-align: center;
+    text-justify: center;
 }
 
 #other-buttons{
     grid-column:1/2;
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 2vh;
+    padding: 1vh;
+    
 }
+
+#other-buttons > button{
+    color: black; 
+    font-size: 4vh;
+
+}
+
+
+
